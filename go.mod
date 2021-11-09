@@ -1,3 +1,3 @@
-module github.com/eknag/decisiontree
+module decisiontree
 
 go 1.17
