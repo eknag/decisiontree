@@ -4,11 +4,12 @@
 
 As a first exercise, while learning golang, I decided to implement a regular categorical decision tree. I'm sure the style is horrible and many golang conventions are violated. Additionally, I didn't teach myself how to package golang files appropriately, so everything is under package main.
 
-## Datasets.go
-This file implements a few types along with their methods
+## intSample.go
 * intSample - this struct holds a single data point for use in prediction
     * NewIntSample - init function (not a method) 
     * Feature - method returns the value associated with the named feature
+
+## intFeature.go
 * intFeature - this is just an int slice
     * Filter - this method takes in an equal length []bool mask and returns the filtered feature
     * NumSamples - Returns the length of the feature
@@ -16,6 +17,8 @@ This file implements a few types along with their methods
     * Unique - returns a dictionary mapping the unique elements to their counts
     * Entropy - calculates the entropy of the feature using log2
     * String - converts the feature to a string for printing
+   
+## intDataset.go 
 * intDataset - This is the main dataset type used as an input to the decision tree
     * Note - I might want to consider breaking out the target from the features.
     * NewIntDataset - initialization function (not a method)
@@ -28,12 +31,13 @@ This file implements a few types along with their methods
     * String - String method for printing
 
 
-## DecisionTree.go
-This is the main file and defines two types with a few methods
-* DecisionTree - this is a helper type used to recursively form the tree, you can mostly ignore it
+## decisionTree.go
+* decisionTree - this is a helper type used to recursively form the tree, you can mostly ignore it
     * NewDecisionTree - init function (not method), called by NewDecisionTreeLearner
     * Predict - takes in an intSample and provides a prediction
     * Depth - returns the depth of the tree
+  
+## DecisionTreeLearner.go
 * DecisionTreeLearner - the main type of the project
     * NewDecisionTreeLearner - takes in tree parameters and a dataset and initializes a new trained tree
     * Predict - predicts the class of an intSample
