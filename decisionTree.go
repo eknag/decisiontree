@@ -1,17 +1,15 @@
-package main
+package decisiontree
 
-import (
-	"fmt"
-)
+import "fmt"
 
-type DecisionTree struct {
+type decisionTree struct {
 	maxDepth      int
 	currentDepth  int
 	minSamples    int
 	minGain       float64
 	dataset       *intDataset
 	split_feature string
-	children      map[int]*DecisionTree
+	children      map[int]*decisionTree
 	majorityClass int
 	leaf          bool
 }
@@ -20,10 +18,10 @@ func NewDecisionTree(maxDepth int,
 	currentDepth int,
 	minSamples int,
 	minGain float64,
-	dataset *intDataset) *DecisionTree {
+	dataset *intDataset) *decisionTree {
 
 	majorityClass := dataset.MajorityClass()
-	children := make(map[int]*DecisionTree)
+	children := make(map[int]*decisionTree)
 	leaf := false
 	if currentDepth == maxDepth || dataset.NumSamples() < minSamples {
 		leaf = true
@@ -60,7 +58,7 @@ func NewDecisionTree(maxDepth int,
 		}
 	}
 
-	return &DecisionTree{
+	return &decisionTree{
 		maxDepth:      maxDepth,
 		currentDepth:  currentDepth,
 		minSamples:    minSamples,
@@ -73,7 +71,7 @@ func NewDecisionTree(maxDepth int,
 	}
 }
 
-func (dt *DecisionTree) Predict(sample *intSample) int {
+func (dt *decisionTree) Predict(sample *intSample) int {
 	if dt.leaf {
 		return dt.majorityClass
 	}
@@ -87,7 +85,7 @@ func (dt *DecisionTree) Predict(sample *intSample) int {
 	return child.Predict(sample)
 }
 
-func (dt *DecisionTree) Depth() int {
+func (dt *decisionTree) Depth() int {
 	if dt.leaf {
 		return 0
 	}
@@ -99,52 +97,4 @@ func (dt *DecisionTree) Depth() int {
 		}
 	}
 	return max_depth
-}
-
-type DecisionTreeLearner struct {
-	maxDepth   int
-	minSamples int
-	minGain    float64
-	dataset    *intDataset
-	root       *DecisionTree
-}
-
-func NewDecisionTreeLearner(maxDepth int,
-	minSamples int,
-	minGain float64,
-	dataset *intDataset) *DecisionTreeLearner {
-	tree := NewDecisionTree(maxDepth, 0, minSamples, minGain, dataset)
-	return &DecisionTreeLearner{maxDepth: maxDepth,
-		minSamples: minSamples,
-		minGain:    minGain,
-		dataset:    dataset,
-		root:       tree}
-}
-
-func (dtl *DecisionTreeLearner) Predict(sample *intSample) int {
-	return dtl.root.Predict(sample)
-}
-
-func (dtl *DecisionTreeLearner) Depth() int {
-	return dtl.root.Depth()
-}
-
-func main() {
-	target := intFeature{1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 2}
-	f1 := intFeature{1, 1, 2, 2, 3, 3, 3, 2, 3, 3, 1}
-	f2 := intFeature{3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4}
-	features := map[string]*intFeature{
-		"target": &target,
-		"f1":     &f1,
-		"f2":     &f2,
-	}
-	d := NewIntDataset(features, "target")
-	tree := NewDecisionTreeLearner(5, 0, 0.0, d)
-
-	test_sample := NewIntSample("target", map[string]int{
-		"f1": 1,
-		"f2": 1,
-	})
-	fmt.Println(tree.Predict(test_sample))
-
 }
