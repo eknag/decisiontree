@@ -2,13 +2,13 @@
 
 ## A simple decision tree algorithm that should definitely be used by no one
 
-To help me learn go, I decided to implement a regular categorical decision tree. Because I was learning as I implemented, I'm sure the style is horrible and many golang conventions are violated. Additionally, I didn't teach my self how to package golang files appropriately, so everything is under package main.
+As an exercise, while learning golang, I decided to implement a regular categorical decision tree. I'm sure the style is horrible and many golang conventions are violated. Additionally, I didn't teach myself how to package golang files appropriately, so everything is under package main.
 
 ## Datasets.go
 This file implements a few types along with their methods
 * intSample - this struct holds a single data point for use in prediction
     * NewIntSample - init function (not a method) 
-    * Feature - method retuns the value associated with the named feature
+    * Feature - method returns the value associated with the named feature
 * intFeature - this is just an int slice
     * Filter - this method takes in an equal length []bool mask and returns the filtered feature
     * NumSamples - Returns the length of the feature
@@ -24,7 +24,7 @@ This file implements a few types along with their methods
     * GetFeature - returns the intFeature corresponding to the named feature
     * SubsetByFeature - takes in a feature name, returns a partition of the dataset based on the feature
     * MutualInformation - calculates the mutual information or information gan between the target and the supplied feature
-    * MajorityClass - returns the most commonly occurreng class in the target
+    * MajorityClass - returns the most commonly occurring class in the target
     * String - String method for printing
 
 
