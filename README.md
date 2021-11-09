@@ -2,7 +2,7 @@
 
 ## A simple decision tree algorithm that should definitely be used by no one
 
-As an exercise, while learning golang, I decided to implement a regular categorical decision tree. I'm sure the style is horrible and many golang conventions are violated. Additionally, I didn't teach myself how to package golang files appropriately, so everything is under package main.
+As a first exercise, while learning golang, I decided to implement a regular categorical decision tree. I'm sure the style is horrible and many golang conventions are violated. Additionally, I didn't teach myself how to package golang files appropriately, so everything is under package main.
 
 ## Datasets.go
 This file implements a few types along with their methods
